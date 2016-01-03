@@ -8940,7 +8940,7 @@ webpackJsonp([1],[
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'form-group is-pivot' },
-	          _react2.default.createElement('input', { type: 'checkbox', id: 'is-pivot', checked: isPivot, onClick: this.props.toggleIsPivot }),
+	          _react2.default.createElement('input', { type: 'checkbox', id: 'is-pivot', checked: isPivot, onChange: this.props.toggleIsPivot }),
 	          ' ',
 	          _react2.default.createElement(
 	            'label',
@@ -27956,4 +27956,4 @@ webpackJsonp([1],[
 
 /***/ }
 ]);
-//# sourceMappingURL=app.e80b3772ef6d98f68a63.js.map
+//# sourceMappingURL=app.09c2a480efd9e6aff47b.js.map
