@@ -39,7 +39,7 @@ export class MigrationView extends React.Component {
       <div className='container'>
         <h1>Migration Generator</h1>
         <div className='form-group is-pivot'>
-          <input type='checkbox' id='is-pivot' checked={isPivot} onClick={this.props.toggleIsPivot}/>
+          <input type='checkbox' id='is-pivot' checked={isPivot} onChange={this.props.toggleIsPivot}/>
           &nbsp;
           <label htmlFor='is-pivot'>Pivot table?</label>
         </div>
