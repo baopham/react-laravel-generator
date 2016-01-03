@@ -5,6 +5,7 @@ import TableColumns from 'Migration/TableColumns.Component'
 import MigrationContent from 'Migration/MigrationContent.Component'
 import PivotTableFields from 'Migration/PivotTableFields.Component'
 import Table from 'Migration/Table'
+import PageTitle from 'components/PageTitle'
 
 describe('(View) Migration', () => {
   let _component, _props, _spies, pivotTableFields
@@ -37,11 +38,11 @@ describe('(View) Migration', () => {
     expect(_component.type).to.equal('div')
   })
 
-  it('Should render an <h1> with "Migration Generator" text', () => {
-    const h1 = content(_component).find(child => child.type === 'h1')
+  it('Should render a <PageTitle> with "Migration Generator" title prop', () => {
+    const pageTitle = content(_component).find(child => child.type === PageTitle)
 
-    expect(h1).to.exist
-    expect(content(h1)).to.match(/Migration Generator/)
+    expect(pageTitle).to.exist
+    expect(pageTitle.props.title).to.match(/Migration Generator/)
   })
 
   it('Should render "Pivot table?" checkbox', () => {

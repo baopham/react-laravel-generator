@@ -4,6 +4,7 @@ import TableColumns from 'Migration/TableColumns.Component'
 import MigrationContent from 'Migration/MigrationContent.Component'
 import { actions } from 'Migration/Migration.Redux'
 import PivotTableFields from 'Migration/PivotTableFields.Component'
+import PageTitle from 'components/PageTitle'
 
 const mapStateToProps = (state) => ({
   migration: state.migration
@@ -37,7 +38,7 @@ export class MigrationView extends React.Component {
 
     return (
       <div className='container'>
-        <h1>Migration Generator</h1>
+        <PageTitle title='Migration Generator' />
         <div className='form-group is-pivot'>
           <input type='checkbox' id='is-pivot' checked={isPivot} onChange={this.props.toggleIsPivot}/>
           &nbsp;
