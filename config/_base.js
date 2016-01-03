@@ -48,7 +48,8 @@ const config = {
     'react-router',
     'redux',
     'redux-actions',
-    'redux-simple-router'
+    'redux-simple-router',
+    'babel-polyfill'
   ],
 
   // ----------------------------------

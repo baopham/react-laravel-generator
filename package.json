@@ -23,9 +23,11 @@
   "author": "David Zukowski <david@zuko.me> (http://zuko.me)",
   "license": "MIT",
   "dependencies": {
+    "babel-polyfill": "^6.3.14",
     "debug": "^2.2.0",
     "dotenv": "^1.2.0",
     "history": "^1.17.0",
+    "inflection": "^1.8.0",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-redux": "^4.0.0",
@@ -34,6 +36,8 @@
     "redux-actions": "^0.9.0",
     "redux-simple-router": "^1.0.1",
     "redux-thunk": "^1.0.0",
+    "titlecase": "^1.0.2",
+    "uuid": "^2.0.1",
     "yargs": "^3.18.0"
   },
   "devDependencies": {
