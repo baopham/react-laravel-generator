@@ -1,16 +1,6 @@
-import TestUtils from 'react-addons-test-utils'
 import CoreLayout from 'layouts/CoreLayout'
-
-function shallowRender (component) {
-  const renderer = TestUtils.createRenderer()
-
-  renderer.render(component)
-  return renderer.getRenderOutput()
-}
-
-function shallowRenderWithProps (props = {}) {
-  return shallowRender(<CoreLayout {...props} />)
-}
+import Navigation from 'layouts/Navigation'
+import { shallowRender, content } from 'test-utils'
 
 describe('(Layout) Core', function () {
   let _component
@@ -23,10 +13,18 @@ describe('(Layout) Core', function () {
       children: _child
     }
 
-    _component = shallowRenderWithProps(_props)
+    _component = shallowRender(<CoreLayout {..._props} />)
   })
 
   it('Should render as a <div>.', function () {
     expect(_component.type).to.equal('div')
+  })
+
+  it('Should render Navigation', function () {
+    const viewContent = content(_component)
+
+    const navigation = content(viewContent).find(child => child.type === Navigation)
+
+    expect(navigation).to.exist
   })
 })
