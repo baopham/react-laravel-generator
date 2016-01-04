@@ -8,10 +8,13 @@ describe('(Component) PageTitle', () => {
   let _rendered, _props
 
   beforeEach(() => {
-    document.title = ''
     _props = {
       title: 'Page Title'
     }
+  })
+
+  afterEach(() => {
+    document.title = ''
   })
 
   it('Should render <h1> with correct text', () => {
