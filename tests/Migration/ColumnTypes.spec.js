@@ -4,7 +4,7 @@ function parentOf (instance) {
   return Object.getPrototypeOf(instance.constructor)
 }
 
-describe('(Class) Migration/ColumnTypes', () => {
+describe('(Class) Migration/ColumnTypes', function () {
   let _column
 
   [
@@ -13,26 +13,26 @@ describe('(Class) Migration/ColumnTypes', () => {
     { name: 'jsonb', type: 'JSONB', method: `jsonb('jsonb')` },
     { name: 'datetime', type: 'DATETIME', method: `dateTime('datetime')` }
   ].forEach(item => {
-    describe(`${item.type} column type...`, () => {
-      beforeEach(() => {
+    describe(`${item.type} column type...`, function () {
+      beforeEach(function () {
         _column = ColumnTypes.TYPES[item.type](item.id, { name: item.name })
       })
 
-      it('should be subclass of NotANumber', () => {
+      it('should be subclass of NotANumber', function () {
         expect(parentOf(_column)).to.equal(ColumnTypes.NotANumber)
       })
 
-      it(`should have type ${item.type}`, () => {
+      it(`should have type ${item.type}`, function () {
         expect(_column.type).to.equal(item.type)
       })
 
-      it('should have correct Laravel methods', () => {
+      it('should have correct Laravel methods', function () {
         expect(_column.laravelMethods).to.equal(item.method)
       })
     })
   })
 
-  it('Should export all available types', () => {
+  it('Should export all available types', function () {
     expect(Object.keys(ColumnTypes.TYPES)).to.have.length(12)
     expect(ColumnTypes.TYPES.INTEGER('id', {})).to.be.an.instanceOf(ColumnTypes.Integer)
     expect(ColumnTypes.TYPES.VARCHAR('id', {})).to.be.an.instanceOf(ColumnTypes.Varchar)
@@ -48,8 +48,8 @@ describe('(Class) Migration/ColumnTypes', () => {
     expect(ColumnTypes.TYPES.BLOB('id', {})).to.be.an.instanceOf(ColumnTypes.Blob)
   })
 
-  describe('BaseType...', () => {
-    it('should throw exception when extending it without implementing laravelMethods getter', () => {
+  describe('BaseType...', function () {
+    it('should throw exception when extending it without implementing laravelMethods getter', function () {
       class StubClass extends ColumnTypes.BaseType {
 
       }
@@ -59,7 +59,7 @@ describe('(Class) Migration/ColumnTypes', () => {
       expect(() => stub.laravelMethods).to.throw('Must override laravelMethods getter')
     })
 
-    it('should throw exception when extending it without implementing type getter', () => {
+    it('should throw exception when extending it without implementing type getter', function () {
       class StubClass extends ColumnTypes.BaseType {
 
       }
@@ -70,8 +70,8 @@ describe('(Class) Migration/ColumnTypes', () => {
     })
   })
 
-  describe('NotANumber...', () => {
-    it('should set incremental and unsigned to undefined for subclasses of NotANumber', () => {
+  describe('NotANumber...', function () {
+    it('should set incremental and unsigned to undefined for subclasses of NotANumber', function () {
       class StubClass extends ColumnTypes.NotANumber {
 
       }
@@ -82,7 +82,7 @@ describe('(Class) Migration/ColumnTypes', () => {
       expect(stub.unsigned).to.not.exist
     })
 
-    it('should have correct summary for subclasses of NotANumber', () => {
+    it('should have correct summary for subclasses of NotANumber', function () {
       class StubClass extends ColumnTypes.NotANumber {
         get type () {
           return 'Stub'
@@ -103,7 +103,7 @@ describe('(Class) Migration/ColumnTypes', () => {
       expect(stub.summary()).to.deep.equal(expectedSummary)
     })
 
-    it('should have correct properties for subclasses of NotANumber', () => {
+    it('should have correct properties for subclasses of NotANumber', function () {
       class StubClass extends ColumnTypes.NotANumber {
         get type () {
           return 'Stub'
@@ -124,12 +124,12 @@ describe('(Class) Migration/ColumnTypes', () => {
     })
   })
 
-  describe('Integer column type...', () => {
-    beforeEach(() => {
+  describe('Integer column type...', function () {
+    beforeEach(function () {
       _column = new ColumnTypes.Integer('foo', { name: 'amount', index: true, unsigned: true })
     })
 
-    it('should have correct properties', () => {
+    it('should have correct properties', function () {
       expect(_column.name).to.equal('amount')
       expect(_column.id).to.equal('foo')
       expect(_column.length).to.be.equal(10)
@@ -141,11 +141,11 @@ describe('(Class) Migration/ColumnTypes', () => {
       expect(_column.type).to.equal('INTEGER')
     })
 
-    it('should have correct Laravel methods', () => {
+    it('should have correct Laravel methods', function () {
       expect(_column.laravelMethods).to.equal(`integer('amount')->index()->unsigned()`)
     })
 
-    it('should give correct summary', () => {
+    it('should give correct summary', function () {
       const expectedSummary = {
         id: 'foo',
         name: 'amount',
@@ -160,12 +160,12 @@ describe('(Class) Migration/ColumnTypes', () => {
     })
   })
 
-  describe('Varchar column type...', () => {
-    beforeEach(() => {
+  describe('Varchar column type...', function () {
+    beforeEach(function () {
       _column = new ColumnTypes.Varchar('foo', { name: 'email', index: true })
     })
 
-    it('should have correct properties', () => {
+    it('should have correct properties', function () {
       expect(_column.name).to.equal('email')
       expect(_column.id).to.equal('foo')
       expect(_column.length).to.be.equal(255)
@@ -177,7 +177,7 @@ describe('(Class) Migration/ColumnTypes', () => {
       expect(_column.type).to.equal('VARCHAR')
     })
 
-    it('should have correct Laravel methods', () => {
+    it('should have correct Laravel methods', function () {
       expect(_column.laravelMethods).to.equal(`string('email')->index()`)
 
       _column = new ColumnTypes.Varchar('foo', { name: 'email', unique: true, length: 36 })
@@ -185,7 +185,7 @@ describe('(Class) Migration/ColumnTypes', () => {
       expect(_column.laravelMethods).to.equal(`string('email', 36)->unique()`)
     })
 
-    it('should give correct summary', () => {
+    it('should give correct summary', function () {
       const expectedSummary = {
         id: 'foo',
         name: 'email',
@@ -200,26 +200,26 @@ describe('(Class) Migration/ColumnTypes', () => {
     })
   })
 
-  describe('Char column type...', () => {
-    beforeEach(() => {
+  describe('Char column type...', function () {
+    beforeEach(function () {
       _column = new ColumnTypes.Char('foo', { name: 'username' })
     })
 
-    it('should be subclass of NotANumber', () => {
+    it('should be subclass of NotANumber', function () {
       expect(parentOf(_column)).to.equal(ColumnTypes.NotANumber)
     })
 
-    it('should have type CHAR', () => {
+    it('should have type CHAR', function () {
       expect(_column.type).to.equal('CHAR')
     })
 
-    it('should have correct length', () => {
+    it('should have correct length', function () {
       expect(_column.length).to.equal(4)
       _column = new ColumnTypes.Char('foo', { name: 'username', length: 5 })
       expect(_column.length).to.equal(5)
     })
 
-    it('should have correct summary', () => {
+    it('should have correct summary', function () {
       const expectedSummary = {
         id: 'foo',
         name: 'username',
@@ -233,27 +233,27 @@ describe('(Class) Migration/ColumnTypes', () => {
       expect(_column.summary()).to.deep.equal(expectedSummary)
     })
 
-    it('should have correct Laravel methods', () => {
+    it('should have correct Laravel methods', function () {
       expect(_column.laravelMethods).to.equal(`char('username', 4)`)
       _column = new ColumnTypes.Char('foo', { name: 'username', length: 5 })
       expect(_column.laravelMethods).to.equal(`char('username', 5)`)
     })
   })
 
-  describe('Boolean column type...', () => {
-    beforeEach(() => {
+  describe('Boolean column type...', function () {
+    beforeEach(function () {
       _column = new ColumnTypes.BBoolean('foo', { name: 'private', nullable: true })
     })
 
-    it('should be subclass of NotANumber', () => {
+    it('should be subclass of NotANumber', function () {
       expect(parentOf(_column)).to.equal(ColumnTypes.NotANumber)
     })
 
-    it('should have type BOOLEAN', () => {
+    it('should have type BOOLEAN', function () {
       expect(_column.type).to.equal('BOOLEAN')
     })
 
-    it('should have correct Laravel methods', () => {
+    it('should have correct Laravel methods', function () {
       expect(_column.laravelMethods).to.equal(`boolean('private')->nullable()`)
 
       _column = new ColumnTypes.BBoolean('foo', { name: 'private' })
@@ -262,12 +262,12 @@ describe('(Class) Migration/ColumnTypes', () => {
     })
   })
 
-  describe('BigInt column type...', () => {
-    beforeEach(() => {
+  describe('BigInt column type...', function () {
+    beforeEach(function () {
       _column = new ColumnTypes.BigInt('foo', { name: 'count' })
     })
 
-    it('should have correct properties', () => {
+    it('should have correct properties', function () {
       expect(_column.name).to.equal('count')
       expect(_column.id).to.equal('foo')
       expect(_column.length).to.be.equal(undefined)
@@ -279,7 +279,7 @@ describe('(Class) Migration/ColumnTypes', () => {
       expect(_column.type).to.equal('BIGINT')
     })
 
-    it('should have correct Laravel methods', () => {
+    it('should have correct Laravel methods', function () {
       expect(_column.laravelMethods).to.equal(`bigInteger('count')`)
 
       _column = new ColumnTypes.BigInt('foo', { name: 'count', incremental: true })
@@ -287,7 +287,7 @@ describe('(Class) Migration/ColumnTypes', () => {
       expect(_column.laravelMethods).to.equal(`bigIncrements('count')`)
     })
 
-    it('should give correct summary', () => {
+    it('should give correct summary', function () {
       const expectedSummary = {
         id: 'foo',
         name: 'count',
@@ -302,12 +302,12 @@ describe('(Class) Migration/ColumnTypes', () => {
     })
   })
 
-  describe('MediumInt column type...', () => {
-    beforeEach(() => {
+  describe('MediumInt column type...', function () {
+    beforeEach(function () {
       _column = new ColumnTypes.MediumInt('foo', { name: 'count' })
     })
 
-    it('should have correct properties', () => {
+    it('should have correct properties', function () {
       expect(_column.name).to.equal('count')
       expect(_column.id).to.equal('foo')
       expect(_column.length).to.be.equal(undefined)
@@ -319,11 +319,11 @@ describe('(Class) Migration/ColumnTypes', () => {
       expect(_column.type).to.equal('MEDIUMINT')
     })
 
-    it('should have correct Laravel methods', () => {
+    it('should have correct Laravel methods', function () {
       expect(_column.laravelMethods).to.equal(`mediumInteger('count')`)
     })
 
-    it('should give correct summary', () => {
+    it('should give correct summary', function () {
       const expectedSummary = {
         id: 'foo',
         name: 'count',
@@ -338,12 +338,12 @@ describe('(Class) Migration/ColumnTypes', () => {
     })
   })
 
-  describe('SmallInt column type...', () => {
-    beforeEach(() => {
+  describe('SmallInt column type...', function () {
+    beforeEach(function () {
       _column = new ColumnTypes.SmallInt('foo', { name: 'count' })
     })
 
-    it('should have correct properties', () => {
+    it('should have correct properties', function () {
       expect(_column.name).to.equal('count')
       expect(_column.id).to.equal('foo')
       expect(_column.length).to.be.equal(undefined)
@@ -355,11 +355,11 @@ describe('(Class) Migration/ColumnTypes', () => {
       expect(_column.type).to.equal('SMALLINT')
     })
 
-    it('should have correct Laravel methods', () => {
+    it('should have correct Laravel methods', function () {
       expect(_column.laravelMethods).to.equal(`smallInteger('count')`)
     })
 
-    it('should give correct summary', () => {
+    it('should give correct summary', function () {
       const expectedSummary = {
         id: 'foo',
         name: 'count',
@@ -374,12 +374,12 @@ describe('(Class) Migration/ColumnTypes', () => {
     })
   })
 
-  describe('TinyInt column type...', () => {
-    beforeEach(() => {
+  describe('TinyInt column type...', function () {
+    beforeEach(function () {
       _column = new ColumnTypes.TinyInt('foo', { name: 'count' })
     })
 
-    it('should have correct properties', () => {
+    it('should have correct properties', function () {
       expect(_column.name).to.equal('count')
       expect(_column.id).to.equal('foo')
       expect(_column.length).to.be.equal(undefined)
@@ -391,11 +391,11 @@ describe('(Class) Migration/ColumnTypes', () => {
       expect(_column.type).to.equal('TINYINT')
     })
 
-    it('should have correct Laravel methods', () => {
+    it('should have correct Laravel methods', function () {
       expect(_column.laravelMethods).to.equal(`tinyInteger('count')`)
     })
 
-    it('should give correct summary', () => {
+    it('should give correct summary', function () {
       const expectedSummary = {
         id: 'foo',
         name: 'count',

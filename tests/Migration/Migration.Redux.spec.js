@@ -10,10 +10,10 @@ import reducer from 'Migration/Migration.Redux'
 import { Integer, Varchar } from 'Migration/ColumnTypes'
 import Table from 'Migration/Table'
 
-describe('(Redux) Migration', () => {
+describe('(Redux) Migration', function () {
   let beforeState, afterState, defaultState
 
-  beforeEach(() => {
+  beforeEach(function () {
     defaultState = {
       tableName: 'users',
       isPivot: false,
@@ -23,7 +23,7 @@ describe('(Redux) Migration', () => {
     }
   })
 
-  it('Should update column data when MIGRATION_UPDATE_COLUMN_INPUT is created', () => {
+  it('Should update column data when MIGRATION_UPDATE_COLUMN_INPUT is created', function () {
     beforeState = defaultState
 
     const newColumnData = new Varchar('primary', {})
@@ -36,7 +36,7 @@ describe('(Redux) Migration', () => {
     })).to.deep.equal(afterState)
   })
 
-  it('Should update table name when MIGRATION_UPDATE_TABLE_NAME action is created', () => {
+  it('Should update table name when MIGRATION_UPDATE_TABLE_NAME action is created', function () {
     beforeState = defaultState
 
     afterState = { ...defaultState, tableName: 'roles' }
@@ -47,7 +47,7 @@ describe('(Redux) Migration', () => {
     })).to.deep.equal(afterState)
   })
 
-  it('Should toggle "isPivot" when MIGRATION_TOGGLE_IS_PIVOT action is created', () => {
+  it('Should toggle "isPivot" when MIGRATION_TOGGLE_IS_PIVOT action is created', function () {
     beforeState = defaultState
 
     afterState = { ...defaultState, isPivot: true }
@@ -57,7 +57,7 @@ describe('(Redux) Migration', () => {
     })).to.deep.equal(afterState)
   })
 
-  it('Should add column when MIGRATION_ADD_COLUMN action is created', () => {
+  it('Should add column when MIGRATION_ADD_COLUMN action is created', function () {
     beforeState = defaultState
 
     const newColumn = new Varchar('id2', { name: 'name' })
@@ -76,7 +76,7 @@ describe('(Redux) Migration', () => {
     })).to.deep.equal(afterState)
   })
 
-  it('Should remove column when MIGRATION_REMOVE_COLUMN action is created', () => {
+  it('Should remove column when MIGRATION_REMOVE_COLUMN action is created', function () {
     beforeState = defaultState
 
     afterState = { ...defaultState, columns: {} }
@@ -87,7 +87,7 @@ describe('(Redux) Migration', () => {
     })).to.deep.equal(afterState)
   })
 
-  it('Should update pivot table when MIGRATION_UPDATE_PIVOT_TABLE action is created', () => {
+  it('Should update pivot table when MIGRATION_UPDATE_PIVOT_TABLE action is created', function () {
     beforeState = { ...defaultState, isPivot: true }
 
     let newTable = new Table('one')

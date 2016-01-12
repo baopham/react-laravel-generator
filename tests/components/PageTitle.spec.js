@@ -1,23 +1,22 @@
 import ReactDOM from 'react-dom'
 import React from 'react'
 import TestUtils from 'react-addons-test-utils'
-import { shallowRender, content } from 'test-utils'
 import PageTitle from 'components/PageTitle'
 
-describe('(Component) PageTitle', () => {
+describe('(Component) PageTitle', function () {
   let _rendered, _props
 
-  beforeEach(() => {
+  beforeEach(function () {
     _props = {
       title: 'Page Title'
     }
   })
 
-  afterEach(() => {
+  afterEach(function () {
     document.title = ''
   })
 
-  it('Should render <h1> with correct text', () => {
+  it('Should render <h1> with correct text', function () {
     _rendered = TestUtils.renderIntoDocument(<PageTitle {..._props} />)
 
     const h1 = TestUtils.findRenderedDOMComponentWithTag(_rendered, 'h1')
@@ -26,13 +25,13 @@ describe('(Component) PageTitle', () => {
     expect(h1.textContent).to.equal(_props.title)
   })
 
-  it('Should set document.title to correct text', () => {
+  it('Should set document.title to correct text', function () {
     TestUtils.renderIntoDocument(<PageTitle {..._props} />)
 
     expect(document.title).to.equal(_props.title)
   })
 
-  it('Should reset document.title when component unmounts', () => {
+  it('Should reset document.title when component unmounts', function () {
     const container = document.createElement('div')
 
     ReactDOM.render(<PageTitle {..._props} />, container)

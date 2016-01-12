@@ -3,10 +3,10 @@ import { shallowRender } from 'test-utils'
 import ColumnTypeSelect from 'Migration/ColumnTypeSelect.Component'
 import { TYPES } from 'Migration/ColumnTypes'
 
-describe('(Component) Migration/ColumnTypeSelect', () => {
+describe('(Component) Migration/ColumnTypeSelect', function () {
   let _component, _rendered, _props, _spies
 
-  beforeEach(() => {
+  beforeEach(function () {
     _spies = {}
 
     _props = {
@@ -15,7 +15,7 @@ describe('(Component) Migration/ColumnTypeSelect', () => {
     }
   })
 
-  it('Should render as <select> with all available type options', () => {
+  it('Should render as <select> with all available type options', function () {
     _component = shallowRender(<ColumnTypeSelect {..._props} />)
 
     expect(_component.type).to.equal('select')
@@ -32,7 +32,7 @@ describe('(Component) Migration/ColumnTypeSelect', () => {
     })
   })
 
-  it('Should call onChange when an option is selected', () => {
+  it('Should call onChange when an option is selected', function () {
     _rendered = TestUtils.renderIntoDocument(<ColumnTypeSelect {..._props} />)
 
     const select = TestUtils.findRenderedDOMComponentWithTag(_rendered, 'select')
@@ -42,7 +42,7 @@ describe('(Component) Migration/ColumnTypeSelect', () => {
     _spies.onChange.should.have.been.called
   })
 
-  it('Should select correct default value', () => {
+  it('Should select correct default value', function () {
     const defaultValue = 'BOOLEAN'
 
     _props = { ..._props, value: defaultValue }

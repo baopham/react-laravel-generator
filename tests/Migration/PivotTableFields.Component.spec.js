@@ -9,10 +9,10 @@ function findInputsForTable (inputs, table) {
   return { nameInput: nameInput, primaryKeyInput: primaryKeyInput }
 }
 
-describe('(Component) Migration/PivotTableFields', () => {
+describe('(Component) Migration/PivotTableFields', function () {
   let _props, _spies, _rendered
 
-  beforeEach(() => {
+  beforeEach(function () {
     _spies = {}
 
     _props = {
@@ -23,7 +23,7 @@ describe('(Component) Migration/PivotTableFields', () => {
     }
   })
 
-  it('Should render inputs for table name and primary key', () => {
+  it('Should render inputs for table name and primary key', function () {
     _rendered = TestUtils.renderIntoDocument(<PivotTableFields {..._props} />)
 
     const inputs = TestUtils.scryRenderedDOMComponentsWithTag(_rendered, 'input')
@@ -39,7 +39,7 @@ describe('(Component) Migration/PivotTableFields', () => {
     expect(inputs.find(input => input.value === _props.tableTwo.primaryKey)).to.exist
   })
 
-  it('Should call updateTableOne when updating table one name', () => {
+  it('Should call updateTableOne when updating table one name', function () {
     _rendered = TestUtils.renderIntoDocument(<PivotTableFields {..._props} />)
 
     const inputs = TestUtils.scryRenderedDOMComponentsWithTag(_rendered, 'input')
@@ -53,7 +53,7 @@ describe('(Component) Migration/PivotTableFields', () => {
     _spies.updateTableOne.should.have.been.calledWith(_props.tableOne)
   })
 
-  it('Should call updateTableOne when updating table one primary key', () => {
+  it('Should call updateTableOne when updating table one primary key', function () {
     _rendered = TestUtils.renderIntoDocument(<PivotTableFields {..._props} />)
 
     const inputs = TestUtils.scryRenderedDOMComponentsWithTag(_rendered, 'input')
@@ -67,7 +67,7 @@ describe('(Component) Migration/PivotTableFields', () => {
     _spies.updateTableOne.should.have.been.calledWith(_props.tableOne)
   })
 
-  it('Should call updateTableTwo when updating table two name', () => {
+  it('Should call updateTableTwo when updating table two name', function () {
     _rendered = TestUtils.renderIntoDocument(<PivotTableFields {..._props} />)
 
     const inputs = TestUtils.scryRenderedDOMComponentsWithTag(_rendered, 'input')
@@ -81,7 +81,7 @@ describe('(Component) Migration/PivotTableFields', () => {
     _spies.updateTableTwo.should.have.been.calledWith(_props.tableTwo)
   })
 
-  it('Should call updateTableTwo when updating table two primary key', () => {
+  it('Should call updateTableTwo when updating table two primary key', function () {
     _rendered = TestUtils.renderIntoDocument(<PivotTableFields {..._props} />)
 
     const inputs = TestUtils.scryRenderedDOMComponentsWithTag(_rendered, 'input')

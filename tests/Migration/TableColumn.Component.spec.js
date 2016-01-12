@@ -3,10 +3,10 @@ import TableColumn from 'Migration/TableColumn.Component'
 import { Integer, Varchar, BBoolean } from 'Migration/ColumnTypes'
 import ColumnTypeSelect from 'Migration/ColumnTypeSelect.Component'
 
-describe('(Component) Migration/TableColumn', () => {
+describe('(Component) Migration/TableColumn', function () {
   let _component, _children, _props, _spies
 
-  beforeEach(() => {
+  beforeEach(function () {
     _spies = {}
 
     _props = {
@@ -19,11 +19,11 @@ describe('(Component) Migration/TableColumn', () => {
     _children = _component.props.children
   })
 
-  it('Should render as <tr>', () => {
+  it('Should render as <tr>', function () {
     expect(_component.type).to.equal('tr')
   })
 
-  it('Should render correct text and select fields', () => {
+  it('Should render correct text and select fields', function () {
     expect(c(_children[0]).type).to.equal('input')
     expect(c(_children[0]).props.value).to.equal('name')
 
@@ -34,7 +34,7 @@ describe('(Component) Migration/TableColumn', () => {
     expect(c(_children[2]).props.type).to.equal('number')
   })
 
-  it('Should have the 3rd child component as an array for 5 boolean fields', () => {
+  it('Should have the 3rd child component as an array for 5 boolean fields', function () {
     expect(_children[3]).to.be.an('array')
 
     const booleanFields = _children[3]
@@ -42,13 +42,13 @@ describe('(Component) Migration/TableColumn', () => {
     expect(booleanFields).to.have.length(5)
   })
 
-  it('Should render the remove button', () => {
+  it('Should render the remove button', function () {
     const button = c(_children[4])
     expect(button.type).to.equal('button')
     expect(button.props.className).to.equal('btn btn-danger')
   })
 
-  it('Should call removeColumn with the id when clicking the remove button', () => {
+  it('Should call removeColumn with the id when clicking the remove button', function () {
     const id = 'foo'
     const button = c(_children[4])
 
@@ -57,7 +57,7 @@ describe('(Component) Migration/TableColumn', () => {
     _spies.removeColumn.should.have.been.calledWith(id)
   })
 
-  it('Should call updateColumnInput when updating a text field', () => {
+  it('Should call updateColumnInput when updating a text field', function () {
     const newName = 'bar'
     const nameField = c(_children[0])
 
@@ -67,7 +67,7 @@ describe('(Component) Migration/TableColumn', () => {
     _spies.updateColumnInput.should.have.been.calledWith(_props.column)
   })
 
-  it('Should call updateColumnInput when updating column type', () => {
+  it('Should call updateColumnInput when updating column type', function () {
     const id = 'foo'
     const newType = 'BOOLEAN'
     const newColumnData = new BBoolean(id, _props.column.summary())
@@ -78,7 +78,7 @@ describe('(Component) Migration/TableColumn', () => {
     _spies.updateColumnInput.should.have.been.calledWith(newColumnData)
   })
 
-  it('Should call updateColumnInput when updating a number field', () => {
+  it('Should call updateColumnInput when updating a number field', function () {
     const newValue = 256
     const numberField = c(_children[2])
 
@@ -88,7 +88,7 @@ describe('(Component) Migration/TableColumn', () => {
     _spies.updateColumnInput.should.have.been.calledWith(_props.column)
   })
 
-  it('Should not show length field if the type is BOOLEAN', () => {
+  it('Should not show length field if the type is BOOLEAN', function () {
     _props = { ..._props, column: new BBoolean('foo', {}) }
     _component = shallowRender(<TableColumn {..._props} />)
     _children = c(_component)
@@ -98,7 +98,7 @@ describe('(Component) Migration/TableColumn', () => {
     expect(numberField).to.be.false
   })
 
-  it('Should call updateColumnInput when updating a checkbox', () => {
+  it('Should call updateColumnInput when updating a checkbox', function () {
     const booleanFields = _children[3]
     const uniqueCheckbox = c(booleanFields[0])
 
@@ -108,81 +108,81 @@ describe('(Component) Migration/TableColumn', () => {
     _spies.updateColumnInput.should.have.been.calledWith(_props.column)
   })
 
-  describe('Boolean fields for INTEGER type...', () => {
+  describe('Boolean fields for INTEGER type...', function () {
     let booleanFields
 
-    beforeEach(() => {
+    beforeEach(function () {
       booleanFields = _children[3]
     })
 
-    it('should render the first checkbox for "Unique" property', () => {
+    it('should render the first checkbox for "Unique" property', function () {
       expect(c(booleanFields[0]).type).to.equal('input')
       expect(c(booleanFields[0]).props.type).to.equal('checkbox')
       expect(c(booleanFields[0]).props.checked).to.be.false
     })
 
-    it('should render the second checkbox for "Index" property', () => {
+    it('should render the second checkbox for "Index" property', function () {
       expect(c(booleanFields[1]).type).to.equal('input')
       expect(c(booleanFields[1]).props.type).to.equal('checkbox')
       expect(c(booleanFields[1]).props.checked).to.be.true
     })
 
-    it('should render the third checkbox for "Incremental" property', () => {
+    it('should render the third checkbox for "Incremental" property', function () {
       expect(c(booleanFields[2]).type).to.equal('input')
       expect(c(booleanFields[2]).props.type).to.equal('checkbox')
       expect(c(booleanFields[2]).props.checked).to.be.false
     })
 
-    it('should render the fourth checkbox for "Nullable" property', () => {
+    it('should render the fourth checkbox for "Nullable" property', function () {
       expect(c(booleanFields[3]).type).to.equal('input')
       expect(c(booleanFields[3]).props.type).to.equal('checkbox')
       expect(c(booleanFields[3]).props.checked).to.be.true
     })
 
-    it('should render the fifth checkbox for "Unsigned" property', () => {
+    it('should render the fifth checkbox for "Unsigned" property', function () {
       expect(c(booleanFields[4]).type).to.equal('input')
       expect(c(booleanFields[4]).props.type).to.equal('checkbox')
       expect(c(booleanFields[4]).props.checked).to.be.false
     })
   })
 
-  describe('Boolean fields for VARCHAR type...', () => {
+  describe('Boolean fields for VARCHAR type...', function () {
     let booleanFields
 
-    beforeEach(() => {
+    beforeEach(function () {
       _props = {
         column: new Varchar('foo', { name: 'name', index: true, nullable: true, unsigned: false }),
-        updateColumnInput: () => {},
-        removeColumn: () => {}
+        updateColumnInput: function () {},
+        removeColumn: function () {}
       }
       _component = shallowRender(<TableColumn {..._props} />)
       _children = _component.props.children
       booleanFields = _children[3]
     })
 
-    it('should render the first checkbox for "Unique" property', () => {
+    it('should render the first checkbox for "Unique" property', function () {
       expect(c(booleanFields[0]).type).to.equal('input')
       expect(c(booleanFields[0]).props.type).to.equal('checkbox')
       expect(c(booleanFields[0]).props.checked).to.be.false
     })
 
-    it('should render the second checkbox for "Index" property', () => {
+    it('should render the second checkbox for "Index" property', function () {
       expect(c(booleanFields[1]).type).to.equal('input')
       expect(c(booleanFields[1]).props.type).to.equal('checkbox')
       expect(c(booleanFields[1]).props.checked).to.be.true
     })
 
-    it('should not render the third checkbox for "Incremental" property', () => {
+    it('should not render the third checkbox for "Incremental" property', function () {
       expect(c(booleanFields[2])).to.be.false
     })
 
-    it('should render the fourth checkbox for "Nullable" property', () => {
+    it('should render the fourth checkbox for "Nullable" property', function () {
       expect(c(booleanFields[3]).type).to.equal('input')
       expect(c(booleanFields[3]).props.type).to.equal('checkbox')
       expect(c(booleanFields[3]).props.checked).to.be.true
     })
 
-    it('should not render the fifth checkbox for "Unsigned" property', () => {
+    it('should not render the fifth checkbox for "Unsigned" property', function () {
       expect(c(booleanFields[4])).to.be.false
     })
   })

@@ -5,10 +5,10 @@ import MigrationContent from 'Migration/MigrationContent.Component'
 import TestUtils from 'react-addons-test-utils'
 import Table from 'Migration/Table'
 
-describe('(Component) Migration/MigrationContent', () => {
+describe('(Component) Migration/MigrationContent', function () {
   let _component, _props, _rendered
 
-  beforeEach(() => {
+  beforeEach(function () {
     _props = {
       migration: {
         tableName: 'users',
@@ -22,14 +22,14 @@ describe('(Component) Migration/MigrationContent', () => {
     }
   })
 
-  it('Should render as <div> with a <pre> element', () => {
+  it('Should render as <div> with a <pre> element', function () {
     _component = shallowRender(<MigrationContent {..._props} />)
 
     expect(_component.type).to.equal('div')
     expect(content(_component).type).to.equal('pre')
   })
 
-  it('Should render correct migration content (non-pivot)', () => {
+  it('Should render correct migration content (non-pivot)', function () {
     const expectedContent =
 `<?php
 
@@ -68,7 +68,7 @@ class CreateUsersTable extends Migration {
     expect(pre.textContent).to.equal(expectedContent)
   })
 
-  it('Should render correct migration content (pivot)', () => {
+  it('Should render correct migration content (pivot)', function () {
     _props.migration.isPivot = true
 
     const expectedContent =

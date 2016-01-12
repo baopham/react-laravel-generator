@@ -18,10 +18,10 @@ function headers (component) {
   return content(tr)
 }
 
-describe('(Component) Migration/TableColumns', () => {
+describe('(Component) Migration/TableColumns', function () {
   let _component, _props, _spies
 
-  beforeEach(() => {
+  beforeEach(function () {
     _spies = {}
 
     _props = {
@@ -29,15 +29,15 @@ describe('(Component) Migration/TableColumns', () => {
         uuid: ColumnTypes.TYPES.INTEGER('uuid', {}),
         uuid2: ColumnTypes.TYPES.VARCHAR('uuid2', {})
       },
-      updateColumnInput: () => {},
+      updateColumnInput: function () {},
       addColumn: (_spies.addColumn = sinon.spy()),
-      removeColumn: () => {}
+      removeColumn: function () {}
     }
 
     _component = shallowRender(<TableColumns {..._props} />)
   })
 
-  it('Should render table and an Add button', () => {
+  it('Should render table and an Add button', function () {
     expect(_component.type).to.equal('div')
     expect(_component.props.children).to.have.length(2)
 
@@ -46,7 +46,7 @@ describe('(Component) Migration/TableColumns', () => {
     expect(button(_component).props.children).to.equal('+')
   })
 
-  it('Should render TableColumn component', () => {
+  it('Should render TableColumn component', function () {
     const _table = table(_component)
 
     const tbody = _table.props.children.find(child => child.type === 'tbody')
@@ -56,13 +56,13 @@ describe('(Component) Migration/TableColumns', () => {
     expect(tableColumnRows).to.have.length(2)
   })
 
-  it('Should call addColumn when clicking the Add button', () => {
+  it('Should call addColumn when clicking the Add button', function () {
     _spies.addColumn.should.have.not.been.called
     button(_component).props.onClick()
     _spies.addColumn.should.have.been.called
   })
 
-  it('Should render correct table headers', () => {
+  it('Should render correct table headers', function () {
     const _headers = headers(_component)
     expect(_headers).to.have.length(8)
     const headerLabels = ['Name', 'Type', 'Length', 'Unique', 'Index', 'Incremental', 'Nullable', 'Unsigned']
